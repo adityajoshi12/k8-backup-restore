@@ -15,7 +15,7 @@ sudo mv /tmp/velero-v1.7.0-linux-amd64/velero /usr/local/bin
 velero version
 ```
 
-1. AWS Credentails Setup
+2. AWS Credentails Setup
 
 ```bash
 [default]
@@ -23,7 +23,7 @@ aws_access_key_id=
 aws_secret_access_key=
 ```
 
-1. Velero installation to K8
+3. Velero installation to K8
 
 ```bash
 export BUCKET=k8-backup
@@ -41,7 +41,7 @@ velero install \
 kubectl get pods -n velero
 ```
 
-Creating application
+4. Creating application
 
 ```bash
 kubectl create deployment testing --image=nginx --replicas=2
@@ -52,7 +52,7 @@ kubectl port-forward svc/test-srv 8000:80
 ```bash
 velero backup-location get
 ```
-
+5. Create backup 
 ```bash
 velero backup create cluster-backup
 ```
@@ -61,10 +61,11 @@ velero backup create cluster-backup
 velero backup-location get
 ```
 
+6. Restore backup
 ```bash
 velero restore create new-backup-restore --from-backup new-backup
 ```
-
+ 7. Scheduled backup
 ```bash
 velero schedule create every5min --schedule="*/5 * * * *" --include-namespaces test --ttl 0h15m0s
 ```
